@@ -1,0 +1,283 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <title>Land Stuff</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'template.css' %}">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+  <style>
+        .div-table {
+  display: table;
+  width: auto;
+  background-color: #eee;
+  border: 1px solid #666666;
+  border-spacing: 5px; /* cellspacing:poor IE support for  this */
+}
+.div-table-row {
+  display: table-row;
+  width: auto;
+  clear: both;
+}
+.div-table-col {
+  float: left; /* fix for  buggy browsers */
+  display: table-column;
+  width: 200px;
+  background-color: #ccc;
+}
+        * {
+  box-sizing: border-box;
+}
+.aParent div {
+    float: left;
+    clear: none;
+}
+.box {
+  float: left;
+  width: 83.33%;
+  padding: 50px;
+    margin-left: 120px;
+    border: 2px  ;
+    border-radius: 25px;
+}
+
+.clearfix::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+        .boxed {
+  border: 1px solid green ;
+}
+.triangle-up {
+	width: 0;
+	height: 0;
+	border-left: 25px solid transparent;
+	border-right: 25px solid transparent;
+	border-bottom: 50px solid green;
+    color: darkgreen;
+}
+  </style>
+  </head>
+  <body>
+{#    <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">#}
+{#        <div class="collapse navbar-collapse" id="navbarsExampleDefault">#}
+{#            <ul class="navbar-nav mr-auto">#}
+{#              <li class="nav-item active">#}
+{#                  <a class="nav-link" href="#">Bootstrap</a>#}
+{#              </li>#}
+{#              <li class="nav-item">#}
+{#                  <a class="nav-link" href="#">React</a>#}
+{#              </li>#}
+{#            </ul>#}
+{#        </div>#}
+{#    </nav>#}
+<nav class="nav nav-pills nav-justified" style="margin-top: 10px;">
+        <br>
+        <div class="triangle-up" style="margin-left: 10px;"></div>
+ <h2> <b>Logo</b></h2>
+        <ul style="margin-left: 1080px;">
+            <li><img src="{% static 'a.svg' %}" height="40" width="40" /> </li>
+
+            </ul>
+         &nbsp;<h2>Set Alert</h2>
+
+</nav>
+
+  <section style="margin-top:-10px;">
+
+<div class="clearfix" style="margin-top: 10px;">
+  <div class="box " style="background-color:#696969; margin-top: 110px;">
+<h1 style="color: white;margin-left: 10px;">Land For Sale in America</h1>
+  </br>
+{#    <main role="main" class="container">#}
+{##}
+{#      <h3>Land For America</h3>#}
+      <form method="GET" action=".">
+        <div class="form-row">
+            <div class="form-group col-12">
+                <div class="input-group">
+                    <input class="form-control py-2 border-right-0 border" type="search" name="title_contains" placeholder="State , City and Country..." />
+                    <span class="input-group-append">
+                        <div class="input-group-text bg-transparent">
+                            <i class="fa fa-search"></i>
+                        </div>
+                    </span>
+                </div>
+            </div>        
+        </div>
+{#        <div class="form-row">#}
+{#            <div class="form-group col-12">#}
+{#                <div class="input-group">#}
+{#                    <input class="form-control py-2 border-right-0 border" type="search" name="id_exact" placeholder="ID exact..." />#}
+{#                    <span class="input-group-append">#}
+{#                        <div class="input-group-text bg-transparent">#}
+{#                            <i class="fa fa-search"></i>#}
+{#                        </div>#}
+{#                    </span>#}
+{#                </div>#}
+{#            </div>        #}
+{#        </div>#}
+{#        <div class="form-row">#}
+{#            <div class="form-group col-12">#}
+{#                <div class="input-group">#}
+{#                    <input class="form-control py-2 border-right-0 border" type="search" name="title_or_author" placeholder="State,City and Country..." />#}
+{#                    <span class="input-group-append">#}
+{#                        <div class="input-group-text bg-transparent">#}
+{#                            <i class="fa fa-search"></i>#}
+{#                        </div>#}
+{#                    </span>#}
+{#                </div>#}
+{#            </div>        #}
+{#        </div>#}
+        <div class="form-row">
+          <div class="form-group col-md-2 col-lg-2">
+            <label for="viewCountMin">Minimum Price</label>
+            <input type="number" min=0 class="form-control" id="viewCountMin" placeholder="0" name="view_count_min">
+          </div>
+          <div class="form-group col-md-2 col-lg-2">
+            <label for="viewCountMax">Maximum Price</label>
+            <input type="number" min=0 class="form-control" id="viewCountMax" placeholder="100000" name="view_count_max">
+          </div>
+          <div class="form-group col-md-2 col-lg-2">
+            <label for="publishDateMin">Publish date minimum</label>
+            <input type="date" class="form-control" id="publishDateMin" name="date_min">
+          </div>
+          <div class="form-group col-md-2 col-lg-2">
+            <label for="publishDateMax">Publish date maximum</label>
+            <input type="date" class="form-control" id="publishDateMax" name="date_max">
+          </div>
+            <div class="form-group col-md-2 col-lg-2">
+            <label for="viewCountMax">Acres</label>
+            <input type="number" step="any" min=0 class="form-control" id="viewCountMax" placeholder="0" name="view_acres">
+          </div>
+
+{#          <div class="form-group col-md-4">#}
+{#            <label for="category">Acres</label>#}
+{#            <select id="category" class="form-control" name="category">#}
+{#              <option selected>Choose...</option>#}
+{#              {% for cat in categories %}#}
+{#              <option value="{{ cat }}">{{ cat }}</option>#}
+{#              {% endfor %}#}
+{#            </select>#}
+{#          </div>#}
+        </div>
+        <div class="form-group">
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" id="reviewed" name="reviewed">
+            <label class="form-check-label" for="reviewed">
+              Reviewed
+            </label>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" id="notReviewed" name="notReviewed">
+            <label class="form-check-label" for="notReviewed">
+              Not reviewed
+            </label>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Search</button>
+      </form>
+    </main>
+  </div>
+</div>
+  </section>
+
+
+      <hr />
+
+{#      <div class="row">#}
+{#        <ul>#}
+{#          {% for journal in queryset %}#}
+{#            <li>#}
+{#              {{ journal.title }}#}
+{#              <span>Author: {{ journal.author.name }}</span>#}
+{#              <span>#}
+{#                {% for cat in journal.categories.all %}#}
+{#                  {{ cat }}#}
+{#                {% endfor %}#}
+{#              </span>#}
+{#              <span>Publish date: {{ journal.publish_date }}</span>#}
+{#              <span>View count: {{ journal.views }}</span>#}
+{#              <span>Reviewed: {{ journal.reviewed }}</span>#}
+{#            </li>#}
+{#            <hr />#}
+{#          {% endfor %}#}
+{#        </ul>#}
+{#      </div>#}
+
+    </main>
+    <section>
+        <div align="center">
+    <br>
+<b><h1 style="color: #2b542c;font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;font-size: 60px;">Property data</h1></b>
+    <br>
+
+
+
+<div class="" style="color: #2f9574; width:80%;background-color: whitesmoke">
+<table class="pinned-row" border="2" style="background-color: whitesmoke">
+{#        {% render_table table %}#}
+    </table>
+    </div>
+    </div>
+<table border="1"  style="margin-left: 50px;width: 95%;">
+<tr style="background-color: #2b542c;color: whitesmoke;">
+<td>PropId</td>
+<td>Address</td>
+<td>City</td>
+    <td>State</td>
+<td>Country</td>
+<td>Zip Code</td>
+    <td>Net Price</td>
+<td>Area</td>
+<td>Rate(Per Area)</td>
+    <td >Url</td>
+    <td>Remark</td>
+</tr>
+
+{% for prop in queryset %}
+<tr>
+    <td>{{ prop.lwPropertyId }}</td>
+    <td>{{ prop.address }}</td>
+    <td>{{ prop.city }}</td>
+    <td>{{ prop.state }}</td>
+    <td>{{ prop.county }}</td>
+    <td>{{ prop.zip }}</td>
+    <td>{{ prop.price }}</td>
+    <td>{{ prop.acres }}</td>
+    <td>{{ prop.Rate }}</td>
+{#    <td>{{ prop.types }}</td>#}
+    <td style="width: 10px;"><a href=" {{ prop.Url }}" target="_blank">{{ prop.Url }}</a></td>
+    <td>
+    <form method="post" action="/">
+                         {% csrf_token %}
+
+            <input type="text" id='Descrpt' style="width: 200px;" class="form-control" placeholder="Text" />
+        <button class="btn btn-primary" type="submit">
+							Save
+						</button>
+        </form>
+    </td>
+
+
+
+</tr>
+{% endfor %}
+</table>
+
+
+    </section>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+</body>
+
+</html>
