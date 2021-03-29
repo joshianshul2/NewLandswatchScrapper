@@ -70,11 +70,10 @@ class User(models.Model):
 
 
 class StatusMaster(models.Model):
-    class Meta:
-                app_label = "socialcustom"
-                managed = True
     status = models.IntegerField(primary_key=True)
-    StatusName = models.CharField(max_length=255)
+    name = models.CharField(max_length=255)
+    def __str__(self):
+        return self.name
 
 class PropertyMaster(models.Model):
     accountId = models.BigIntegerField()
@@ -105,13 +104,61 @@ class PropertyMaster(models.Model):
     latitude = models.FloatField()
     longitude = models.FloatField()
     price = models.FloatField()
-    types = models.CharField(max_length=255)
+    types = models.TextField(max_length=255)
     state = models.CharField(max_length=255)
-    status = models.BigIntegerField()
+    status = models.CharField(max_length=20)
+    status1 = models.CharField(max_length=255)
     zip = models.BigIntegerField()
     Rate = models.FloatField()
+    NetPrAr = models.FloatField(default=0.00)
     Descrpt = models.TextField(max_length=255,default="!")
     created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now_add=True)
+
+class AvgMaster(models.Model):
+    # acres = models.FloatField()
+    county = models.CharField(max_length=255)
+    # price = models.FloatField()
+    state = models.CharField(max_length=255)
+    NetPrAr = models.FloatField(default=0.00)
+    Rate = models.FloatField()
+    UserPercentage = models.FloatField(default=0.00)
+    FinaleValue = models.FloatField(default=0.00)
+    accountId = models.BigIntegerField()
+    acres = models.FloatField()
+    adTargetingCountyId = models.BigIntegerField()
+    address = models.CharField(max_length=255)
+    baths = models.BigIntegerField()
+    beds = models.BigIntegerField()
+    brokerCompany = models.CharField(max_length=255)
+    brokerName = models.CharField(max_length=255)
+    Url = models.URLField(max_length=255)
+    city = models.CharField(max_length=255)
+    cityID = models.BigIntegerField()
+    companyLogoDocumentId = models.BigIntegerField()
+    countyId = models.BigIntegerField()
+    description = models.TextField(max_length=255)
+    hasHouse = models.BooleanField()
+    hasVideo = models.BooleanField()
+    hasVirtualTour = models.BooleanField()
+    hasVirtualTour = models.BigIntegerField()
+    imageCount = models.BigIntegerField()
+    imageAltTextDisplay = models.CharField(max_length=255)
+    # PK_id = models.BigIntegerField(default=0)
+    isHeadlineAd = models.BooleanField()
+    lwPropertyId = models.BigIntegerField()
+    isALC = models.BigIntegerField()
+    latitude = models.FloatField()
+    longitude = models.FloatField()
+    price = models.FloatField()
+    types = models.TextField(max_length=255)
+    status = models.CharField(max_length=20)
+    status1 = models.CharField(max_length=255)
+    zip = models.BigIntegerField()
+    Descrpt = models.TextField(max_length=255, default="!")
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now_add=True)
+
 
     # MY_CHOICES = (
     #     ('a', 'Hola'),
@@ -140,6 +187,7 @@ class Property_TypeMaster(models.Model):
         # TypeId = models.ForeignKey(TypeMaster, on_delete=models.CASCADE)
         # lwPropertyId = models.ForeignKey(PropertyMaster, on_delete=models.CASCADE)
         #
+
 
 
 

@@ -162,9 +162,11 @@
 <td>Zip Code</td>
     <td>Net Price</td>
 <td>Rate(Per Area)</td>
+
 {#    <td>Area</td>#}
     <td>Url</td>
     <td>Remark</td>
+    <td>Created At</td>
 </tr>
 
 {% for prop in queryset %}
@@ -178,6 +180,8 @@
     <td>{{ prop.price }}</td>
 {#    <td>{{ prop.area }}</td>#}
     <td>{{ prop.Rate }}</td>
+    <td>{{ prop.created_at }}</td>
+{#    <td>{{ prop.update_dat }}</td>#}
     <td><a href=" {{ prop.Url }}" target="_blank">{{ prop.Url }}</a></td>
     <td>
     <form method="post" action="/">

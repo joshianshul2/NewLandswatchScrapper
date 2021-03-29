@@ -19,7 +19,7 @@ WSGI_APPLICATION = 'djfilter.wsgi.dev.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'Rishu',
+        'NAME': 'PropMaster',
         'USER': 'postgres',
         'PASSWORD':'anshul123',
         'HOST':'localhost',

@@ -27,10 +27,15 @@ urlpatterns = [
     # url(r'^simple_list$', views.simple_list),
 
     url(r'^$', views.index),
+    # url(r'^loader$', views.loader, name='loader'),
     url(r'^register$', views.register),
     url(r'^success$', views.success),
     url(r'^login$', views.login),
-    url(r'^job$', views.job),
+    url(r'^show$', views.show),
+    url(r'^Alert$', views.Alert),
+    url(r'^logout_view$', views.logout_view),
+    path('loader', views.loader, name='loader'),
+    url(r'^export_users_csv2$',views.export_users_csv2, name='export_users_csv2'),
 
 
 
@@ -45,6 +50,7 @@ urlpatterns = [
     # path("a",SomeTableView.as_view())
 
 ]
+
 
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL,
