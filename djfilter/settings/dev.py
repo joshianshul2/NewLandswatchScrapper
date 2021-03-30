@@ -4,14 +4,14 @@ from .base import *
 
 ALLOWED_HOSTS += ['*']
 DEBUG = True
-CORS_ORIGIN_WHITELIST = [
-    'https://localhost:3000'
-]
-CORS_ORIGIN_WHITELIST = [
-    'http://localhost:3000',
-    'http://localhost:8000',
-    'http://localhost:8080',
-]
+# CORS_ORIGIN_WHITELIST = [
+#     'https://localhost:3000'
+# ]
+# CORS_ORIGIN_WHITELIST = [
+#     'http://localhost:3000',
+#     'http://localhost:8000',
+#     'http://localhost:8080',
+# ]
 
 WSGI_APPLICATION = 'djfilter.wsgi.dev.application'
 
@@ -28,6 +28,6 @@ DATABASES = {
     }
 }
 
-CORS_ORIGIN_WHITELIST = (
-    'localhost:3000',
-)
+# CORS_ORIGIN_WHITELIST = (
+#     'localhost:3000',
+# )
