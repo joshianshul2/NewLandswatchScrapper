@@ -9,7 +9,7 @@ WSGI_APPLICATION = 'djfilter.wsgi.prod.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'PropertyStuff',
+        'NAME': 'PropMaster',
         'USER': 'postgres',
         'PASSWORD':'anshul123',
         'HOST':'localhost',

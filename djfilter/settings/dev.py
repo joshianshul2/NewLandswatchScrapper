@@ -15,7 +15,6 @@ DEBUG = True
 
 WSGI_APPLICATION = 'djfilter.wsgi.dev.application'
 
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
@@ -27,6 +26,19 @@ DATABASES = {
         'listen_addresses':'*'
     }
 }
+
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'rishu',
+#         'USER': 'postgres',
+#         'PASSWORD':'anshul123',
+#         'HOST':'localhost',
+#         # 'PORT' :5432
+#         'listen_addresses':'*'
+#     }
+# }
 
 # CORS_ORIGIN_WHITELIST = (
 #     'localhost:3000',

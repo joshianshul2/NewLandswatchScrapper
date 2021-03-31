@@ -6,7 +6,7 @@ from .models import Journal, Category, StatusMaster
 from .serializers import JournalSerializer
 from django.shortcuts import render, HttpResponse, redirect
 from django.contrib import messages
-from django.views.generic import ListView
+from django.views.generic import ListView,TemplateView
 from django.http import HttpResponse
 from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
@@ -15,6 +15,8 @@ from django.contrib.auth import logout
 from django.shortcuts import redirect
 from django.db.models import Sum,Avg
 import bcrypt
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.utils.decorators import method_decorator
 from .models import User,UserManager,PropertyMaster,Property_TypeMaster,TypeMaster,AvgMaster
 import schedule
 import time
@@ -34,7 +36,9 @@ from django.shortcuts import render, get_object_or_404
 from rest_framework import generics
 from rest_framework import generics
 from rest_framework.response import Response
+from django.urls import reverse
 from .serializers import JournalSerializer
+from django.contrib.auth.decorators import login_required
 
 status_dict = {1: "Active", 2: "Under Contract", 3: "Off Market", 4: "Sold"}
 def index(request):
@@ -53,6 +57,8 @@ def register(request):
     user.save()
     request.session['id'] = user.id
     return redirect('/success')
+
+
 
 def Alert(request):
     qs = AvgMaster.objects.all()
@@ -130,7 +136,7 @@ def Alert(request):
                 # akp = AvgMaster.objects.filter(Rate__gte=F('FinaleValue')).values()
                 print(akp)
                 print("Zakir Khan")
-                # qs = filter2(request)
+                qs = filter2(request)
                 for i in akp:
                     print("ANshul",i["state"], i["county"], i["Rate"], i["FinaleValue"])
                 # qw.save()
@@ -143,15 +149,28 @@ def Alert(request):
             else:
                 print("Anshul")
     anji = AvgMaster.objects.all()
+    akp = filter(request)
     context = {
                  'aj': akp,
         # 'status': StatusMaster.objects.all()
                 }
     return render(request, "rishu.html", context)
 
+# class ProtectedView(TemplateView):
+#     template_name = '/'
+#
+#     @method_decorator(login_required(login_url='/show'))
+#     def dispatch(self, *args, **kwargs):
+#         return super(ProtectedView, self).dispatch(*args, **kwargs)
 
 
+
+# class ProtectedView(TemplateView):
+#     template_name = 'secret.html'
+# @method_decorator(login_required)
+# @login_required(login_url='/login')
 def show(request):
+
     a=[]
     qs = PropertyMaster.objects.all()
     qs = filter(request)
@@ -741,6 +760,9 @@ def login(request):
         # if (bcrypt.checkpw(request.POST['login_password'].encode('utf-8'), user.password.encode('utf-8'))):
         if (request.POST.get('login_password') == user.password):
             request.session['id'] = user.id
+            if request.POST.get('next',None) :
+                print("Dipu")
+                return  HttpResponseRedirect(request.GET['next'])
             return redirect('/show')
     return redirect('/')
 
@@ -856,7 +878,7 @@ def filter(request):
 
     # if is_valid_queryparam(acres) :
     #     qs = qs.filter(acres__values=acres)
-    export_users_csv2(request,qs)
+    # export_users_csv2(request,qs)
     return qs
 
 def filter2(request):
@@ -936,103 +958,6 @@ def filter2(request):
     export_users_csv2(request,qs)
     return qs
 
-# def filter(request):
-#     qs = PropertyMaster.objects.all()
-#     title_contains_query = request.GET.get('title_contains')
-#     id_exact_query = request.GET.get('id_exact')
-#     title_or_author_query = request.GET.get('title_or_author')
-#     view_count_min = request.GET.get('view_count_min')
-#     view_count_max = request.GET.get('view_count_max')
-#     date_min = request.GET.get('date_min')
-#     date_max = request.GET.get('date_max')
-#     view_acres = request.GET.get('view_acres')
-#     # viewstatus = request.GET.get('viewstatus')
-#     # viewtypes = request.GET.get('viewtypes')
-#     status = request.GET.get('status')
-#     # view_county = request.GET.get('view_county')
-#     reviewed = request.GET.get('reviewed')
-#     not_reviewed = request.GET.get('notReviewed')
-#     view_count_per = request.GET.get('view_count_per')
-#
-#     if is_valid_queryparam(title_contains_query):
-#         qs = qs.filter(city__icontains=title_contains_query)
-#
-#     elif is_valid_queryparam(id_exact_query):
-#         qs = qs.filter(id=id_exact_query)
-#
-#     elif is_valid_queryparam(title_or_author_query):
-#         qs = qs.filter(Q(city__icontains=title_or_author_query)).distinct()
-#                        # | Q(author__name__icontains=title_or_author_query)
-#
-#     # if is_valid_queryparam(viewtypes):
-#     #     qs = qs.filter(types__icontains=viewtypes)
-#     #
-#     # elif is_valid_queryparam(id_exact_query):
-#     #     qs = qs.filter(id=id_exact_query)
-#     #
-#     # elif is_valid_queryparam(title_or_author_query):
-#     #     qs = qs.filter(Q(types__icontains=viewtypes)).distinct()
-#     #                    # | Q(author__name__icontains=title_or_author_query)
-#     #
-#     # if is_valid_queryparam(view_county):
-#     #     qs = qs.filter(state__icontains=view_county)
-#     #
-#     # elif is_valid_queryparam(view_county):
-#     #     qs = qs.filter(id=view_county)
-#     #
-#     # elif is_valid_queryparam(view_county):
-#     #     qs = qs.filter(Q(state__county=view_county)).distinct()
-#                        # | Q(author__name__icontains=title_or_author_query)
-#
-#     # if is_valid_queryparam(status):
-#     #     qs = qs.filter(status=view_county)
-#     #
-#     # elif is_valid_queryparam(view_county):
-#     #     qs = qs.filter(status=view_county)
-#     #
-#     # elif is_valid_queryparam(view_county):
-#     #     qs = qs.filter(Q(status__iconitains=view_county)).distinct()
-#     #                    # | Q(author__name__icontains=title_or_author_query)
-#
-#
-#
-#     if is_valid_queryparam(view_count_min):
-#         qs = qs.filter(price__gte=view_count_min)
-#
-#     if is_valid_queryparam(view_count_max):
-#         qs = qs.filter(price__lt=view_count_max+"1")
-#
-#     if is_valid_queryparam(date_min):
-#         qs = qs.filter(publish_date__gte=date_min)
-#
-#     if is_valid_queryparam(status):
-#         qs = qs.filter(status=status)
-#
-#     if is_valid_queryparam(status) and status != 'Choose...':
-#         print(status)
-#         qs = qs.filter(Q(status__lt=status + "1")).distinct()
-#
-#     if is_valid_queryparam(date_max):
-#         qs = qs.filter(publish_date__lt=date_max)
-#
-#     if is_valid_queryparam(view_acres):
-#         qs = qs.filter(acres__gte=view_acres)
-#     #
-#     # if is_valid_queryparam(acres) :
-#     #     qs = qs.filter(acres__values=acres)
-#
-#     if reviewed == 'on':
-#         qs = qs.filter(reviewed=True)
-#
-#     elif not_reviewed == 'on':
-#         qs = qs.filter(reviewed=False)
-#
-#     if is_valid_queryparam(view_count_per):
-#         qs = qs.filter(Rate__gte=view_count_per)
-#
-#     return qs
-
-
 
 
 def infinite_filter(request):
@@ -1096,7 +1021,7 @@ class ReactInfiniteView(generics.ListAPIView):
 
 @cache_control(no_cache=True, must_revalidate=True)
 def logout_view(request):
-    logout(request)
-    return HttpResponseRedirect(request.META.get('HTTP_REFERER','index2'))
+    # logout(request)
+    return render(request,'index2.html')
 
 

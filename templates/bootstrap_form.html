@@ -354,9 +354,9 @@ function exportTableToCSV(filename) {
 {##}
 
 
-Anji
+{#Anji#}
         {% if aj.UserPercentage == 0  %}
-            <h1>Hello</h1>
+{#            <h1>Hello</h1>#}
             <table id="tblCustomers"  border="1"  style="margin-left: 10px;width: 99%;">
 <tr style="background-color: #2b542c;color: whitesmoke;">
 
@@ -399,7 +399,7 @@ Anji
     </div>
 {#    <form action="/export_users_csv2" >#}
     {% else %}
-            <h3>World</h3>
+{#            <h3>World</h3>#}
 <table id="tblCustomers"  border="1"  style="margin-left: 10px;width: 99%;">
 <tr style="background-color: #2b542c;color: whitesmoke;">
 <td>PropId</td>
@@ -441,16 +441,16 @@ Anji
     <td>{{ prop.created_at }}</td>
     <td>{{ prop.updated_at }}</td>
 
-{#    <td>#}
-{#    <form method="post" action="/">#}
-{#                         {% csrf_token %}#}
-{##}
-{#            <input type="text" id='Descrpt' style="width: 200px;" class="form-control" placeholder="Text" />#}
-{#        <button class="btn btn-primary" type="submit">#}
-{#							Save#}
-{#						</button>#}
-{#        </form>#}
-{#    </td>#}
+    <td>
+    <form method="post" action="/">
+                         {% csrf_token %}
+
+            <input type="text" id='Descrpt' style="width: 200px;" class="form-control" placeholder="Text" />
+        <button class="btn btn-primary" type="submit">
+							Save
+						</button>
+        </form>
+    </td>
 
 
 

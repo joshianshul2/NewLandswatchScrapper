@@ -5,6 +5,8 @@ from django.urls import path, include, re_path
 from django.views.generic import TemplateView
 from django.conf.urls import url
 from core import views
+from core.views import TemplateView
+from django.contrib.auth.decorators import login_required
 from django.urls import path
 # from socialcustom.views import SomeTableView
 
@@ -15,7 +17,7 @@ urlpatterns = [
     # path('api-auth/', include('rest_framework.urls')),
     # path('rest-auth/', include('rest_auth.urls')),
     # path('rest-auth/registration/', include('rest_auth.registration.urls')),
-    # path('admin/', admin.site.urls),
+    path('admin/', admin.site.urls),
     # path('', BootstrapFilterView, name='bootstrap'),
     # path('api/', ReactFilterView.as_view(), name='react'),
     # path('infinite-api/', ReactInfiniteView.as_view(), name='infinite-react'),
@@ -31,7 +33,9 @@ urlpatterns = [
     url(r'^register$', views.register),
     url(r'^success$', views.success),
     url(r'^login$', views.login),
+    url(r'^ProtectedView/$', login_required(views.TemplateView.as_view(template_name="bootstrap_form.html"))),
     url(r'^show$', views.show),
+    # path('show/', views.show,name='show'),
     url(r'^Alert$', views.Alert),
     url(r'^logout_view$', views.logout_view),
     path('loader', views.loader, name='loader'),
