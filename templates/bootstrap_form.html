@@ -172,7 +172,7 @@ function exportTableToCSV(filename) {
         <div class="form-row">
             <div class="form-group col-12">
                 <div class="input-group">
-                    <input class="form-control py-2 border-right-0 border" type="search" name="title_contains" placeholder="Enter a City ..." />
+                    <input class="form-control py-2 border-right-0 border" type="search" name="title_contains" placeholder="Enter a City , State or County ..." />
                     <span class="input-group-append">
                         <div class="input-group-text bg-transparent">
                             <i class="fa fa-search"></i>
@@ -270,10 +270,6 @@ function exportTableToCSV(filename) {
               </div>
 
         <button type="submit" class="btn btn-primary">Search</button>
-{#          <a href="{% url 'loader'%}"><img src="{%  static 'ajrishu.png' %}" height="100" width="100" style="margin-left: 800px;"></a>#}
-      <a id="buttonId" href="{% url 'loader'%}" onclick="return buttonClicked()"><img id="buttonImage"  src="{%  static 'ajrishu.png' %}" height="100" width="100" style="margin-left: 800px;"></a>
-{#          <button onclick="exportTableToExcel('tblData')">Export Table Data To Excel File</button>#}
-{#        <button onclick="exportTableToExcel('tblData', 'members-data')">Export Table Data To Excel File</button>#}
 
       </form>
 
@@ -420,7 +416,7 @@ function exportTableToCSV(filename) {
 
 </tr>
 
-{% for prop in queryset %}
+{% for prop in users %}
 <tr>
     <td>{{ prop.lwPropertyId }}</td>
     <td>{{ prop.address }}</td>
@@ -460,12 +456,57 @@ function exportTableToCSV(filename) {
 
 </table>
     {% endif %}
-    </section>
 
 {#     <input class="btn btn-primary" style="margin-left: 1000px;" type="submit" value="Export To Excel" />#}
 {#    </form>#}
+<br>
+
+<nav aria-label="..." style="margin-left:20px;">
+      {% if users.has_other_pages %}
+        <ul class="pagination">
+          {% if users.has_previous %}
+                <li class="page-item active">
+                    <a class="page-link " href="?page={{ users.previous_page_number }}" >Previous</a>
+                  </li>
+            </li>
+          {% else %}
+            <!-- <li class="disabled"><span>&laquo;</span></li> -->
+            <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+          {% endif %}
+          <!-- {% for i in users.paginator.page_range %} -->
+ {% for l in  user.paginator.page_range %}
+        {% if forloop.counter < 5 %}
+            <li><a href="?page={{forloop.counter}}">{{forloop.counter}}</a></li>
+        {% endif %}
+      {% endfor %}
+
+            {% if users.number == i %}
+            <div>
+                <pdf:nextpage />
+            </div>
+            <li class="page-item active"><a class="page-link" href="#">{{ i }}</a></li>
+            <!-- <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li> -->
+            {% else %}
+            <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+              <!-- <li class="page-item disabled"> <a href="?page={{ i }}">{{ i }}</a></li> -->
+            {% endif %}
 
 
+          <!-- {% endfor %} -->
+          {% if users.has_next %}
+          <li class="page-item active">
+            <a class="page-link " href="?page={{ users.next_page_number }}">Next</a>
+          </li>
+          {% else %}
+          <li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
+            <li class="disabled"><span>&raquo;</span></li>
+
+          {% endif %}
+
+
+        </ul>
+      {% endif %}
+    </nav>
 
 <script>
 var coll = document.getElementsByClassName("collapsible");
