@@ -1,0 +1,539 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <title>Land Stuff</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'template.css' %}">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+  <style>
+        .div-table {
+  display: table;
+  width: auto;
+  background-color: #eee;
+  border: 1px solid #666666;
+  border-spacing: 5px; /* cellspacing:poor IE support for  this */
+}
+.div-table-row {
+  display: table-row;
+  width: auto;
+  clear: both;
+}
+.div-table-col {
+  float: left; /* fix for  buggy browsers */
+  display: table-column;
+  width: 200px;
+  background-color: #ccc;
+}
+        * {
+  box-sizing: border-box;
+}
+.aParent div {
+    float: left;
+    clear: none;
+}
+.box {
+  float: left;
+  width: 83.33%;
+  padding: 50px;
+    margin-left: 120px;
+    border: 2px  ;
+    border-radius: 25px;
+}
+
+.clearfix::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+        .boxed {
+  border: 1px solid green ;
+}
+.triangle-up {
+	width: 0;
+	height: 0;
+	border-left: 25px solid transparent;
+	border-right: 25px solid transparent;
+	border-bottom: 50px solid green;
+    color: darkgreen;
+}
+.collapsible {
+  background-color: #0b2e13;
+  color: white;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+}
+
+.active, .collapsible:hover {
+  background-color: #555;
+}
+
+.content {
+  padding: 0 18px;
+  display: none;
+  overflow: hidden;
+  background-color: #0b2e13;
+}
+  </style>
+<script type="text/javascript">
+	function downloadCSV(csv, filename) {
+    var csvFile;
+    var downloadLink;
+
+    // CSV file
+    csvFile = new Blob([csv], {type: "text/csv"});
+
+    // Download link
+    downloadLink = document.createElement("a");
+
+    // File name
+    downloadLink.download = filename;
+
+    // Create a link to the file
+    downloadLink.href = window.URL.createObjectURL(csvFile);
+
+    // Hide download link
+    downloadLink.style.display = "none";
+
+    // Add the link to DOM
+    document.body.appendChild(downloadLink);
+
+    // Click download link
+    downloadLink.click();
+}
+function exportTableToCSV(filename) {
+    var csv = [];
+    var rows = document.querySelectorAll("table tr");
+
+    for (var i = 0; i < rows.length; i++) {
+        var row = [], cols = rows[i].querySelectorAll("td, th");
+
+        for (var j = 0; j < cols.length; j++)
+            row.push(cols[j].innerText);
+
+        csv.push(row.join(","));
+    }
+
+    // Download CSV file
+    downloadCSV(csv.join("\n"), filename);
+}
+</script>
+
+
+  </head>
+  <body>
+{#    <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">#}
+{#        <div class="collapse navbar-collapse" id="navbarsExampleDefault">#}
+{#            <ul class="navbar-nav mr-auto">#}
+{#              <li class="nav-item active">#}
+{#                  <a class="nav-link" href="#">Bootstrap</a>#}
+{#              </li>#}
+{#              <li class="nav-item">#}
+{#                  <a class="nav-link" href="#">React</a>#}
+{#              </li>#}
+{#            </ul>#}
+{#        </div>#}
+{#    </nav>#}
+<nav class="nav nav-pills nav-justified" style="margin-top: 10px;">
+        <br>
+        <div class="triangle-up" style="margin-left: 10px;"></div>
+    <h2> <b>Logo</b></h2>
+        <ul style="margin-left: 1080px;margin-top: 10px;">
+{#            <a href="{% url 'loader'%}"><img src="{% static 'a.svg' %}" height="40" width="40" /></a>#}
+{##}
+
+            <form action="logout_view">
+    <input class="btn btn-primary" type="submit" value="Logout" />
+</form>
+        </ul>
+{#         &nbsp;<h2>Set Alert</h2>#}
+
+
+</nav>
+
+  <section style="margin-top:-10px;">
+
+<div class="clearfix" style="margin-top: 10px;">
+  <div class="box " style="background-color:#696969; margin-top: 110px;">
+<h1 style="color: white;margin-left: 10px;">Cheap Land Search</h1>
+  </br>
+{#    <main role="main" class="container">#}
+{##}
+{#      <h3>Land For America</h3>#}
+      <form method="GET" action="/show">
+        <div class="form-row">
+            <div class="form-group col-12">
+                <div class="input-group">
+                    <input class="form-control py-2 border-right-0 border" type="search" name="title_contains" placeholder="Enter a City , State or County ..." />
+                    <span class="input-group-append">
+                        <div class="input-group-text bg-transparent">
+                            <i class="fa fa-search"></i>
+                        </div>
+                    </span>
+                </div>
+            </div>
+        </div>
+{#        <div class="form-row">#}
+{#            <div class="form-group col-12">#}
+{#                <div class="input-group">#}
+{#                    <input class="form-control py-2 border-right-0 border" type="search" name="id_exact" placeholder="ID exact..." />#}
+{#                    <span class="input-group-append">#}
+{#                        <div class="input-group-text bg-transparent">#}
+{#                            <i class="fa fa-search"></i>#}
+{#                        </div>#}
+{#                    </span>#}
+{#                </div>#}
+{#            </div>        #}
+{#        </div>#}
+{#        <div class="form-row">#}
+{#            <div class="form-group col-12">#}
+{#                <div class="input-group">#}
+{#                    <input class="form-control py-2 border-right-0 border" type="search" name="title_or_author" placeholder="State,City and Country..." />#}
+{#                    <span class="input-group-append">#}
+{#                        <div class="input-group-text bg-transparent">#}
+{#                            <i class="fa fa-search"></i>#}
+{#                        </div>#}
+{#                    </span>#}
+{#                </div>#}
+{#            </div>        #}
+{#        </div>#}
+        <div class="form-row">
+          <div class="form-group col-md-2 col-lg-3">
+            <label for="viewCountMin">Minimum Price</label>
+            <input type="number" min=0 class="form-control" id="viewCountMin" placeholder="0" name="view_count_min">
+          </div>
+          <div class="form-group col-md-2 col-lg-2">
+            <label for="viewCountMax">Maximum Price</label>
+            <input type="number" min=0 class="form-control" id="viewCountMax" placeholder="100000" name="view_count_max">
+          </div>
+          <div class="form-group col-md-2 col-lg-2">
+            <label for="publishDateMin">Publish date minimum</label>
+            <input type="date" class="form-control" id="publishDateMin" name="date_min">
+          </div>
+          <div class="form-group col-md-2 col-lg-2">
+            <label for="publishDateMax">Publish date maximum</label>
+            <input type="date" class="form-control" id="publishDateMax" name="date_max">
+          </div>
+
+            <div class="form-group col-md-2 col-lg-2">
+            <label for="types">Types </label>
+            <input type="text"  class="form-control" id="types" style="width:230px;" placeholder="Types" name="types">
+
+            </div>
+
+
+        </div>
+
+{#<div class="form-group col-md-2 col-lg-2">#}
+{#            <label for="viewCountMin">Price Percentage</label>#}
+
+{#            <input type="number" min=0 class="form-control" id="viewCountMin" placeholder="% in Price" name="view_count_min">#}
+{#          </div>#}
+
+
+          <div class="form-row" style="padding-left:0px;">
+          <div class="form-group col-md-2 col-lg-2">
+            <label for="publishDateMin">Update min Date</label>
+            <input type="date" class="form-control" id="publishDateMin" name="date_min">
+          </div>
+          <div class="form-group col-md-2 col-lg-2">
+            <label for="publishDateMax">Update Max Date</label>
+            <input type="date" class="form-control" id="publishDateMax" name="date_max">
+          </div>
+
+                  <div class="form-group" >
+            <label for="status">Status</label>
+            <select id="status" class="form-control"  style="width:150px;" name="status">
+              <option selected>Choose...</option>
+{#              {% for cat in queryset %}#}
+              <option>Active</option>
+                  <option>Under Contract</option>
+                  <option>Off Market </option>
+                  <option>Sold</option>
+{#              {% endfor %}#}
+            </select>
+          </div>
+
+
+            <div class="form-group col-md-2 col-lg-2">
+            <label for="viewCountMax">Acres</label>
+            <input type="number" step="any" min=0 class="form-control" id="viewCountMax" placeholder="0" name="view_acres">
+          </div>
+              </div>
+
+        <button type="submit" class="btn btn-primary">Search</button>
+Rishuuuuu
+<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names.." title="Type in a name">
+      </form>
+
+
+{#      Anji#}
+<br>
+<button type="button" class="collapsible">Ratio Analyser</button>
+<div class="content">
+   <form method="GET" action="/Alert">
+       {%  csrf_token %}
+        <div class="form-row" style="padding-left:10px;">
+                <div class="form-group col-md-2 col-lg-2">
+            <label for="view_state">State</label>
+            <input type="text"  class="form-control" id="view_state" placeholder="State" name="view_state">
+
+            </div>
+            <div class="form-group col-md-2 col-lg-2">
+            <label for="view_percentage">Price Percentage</label>
+                <input type="number" step="0.01" class="form-control" id="view_percentage" placeholder="% in Price" name="view_percentage">
+          </div>
+            <br>
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <button type="submit2" class="btn btn-danger" style="width: 20%; margin-top: 23px; height: 50px;">Alert</button>
+
+</div>
+{#          <button type="submit2" class="btn btn-danger">Alert</button>#}
+&nbsp;&nbsp;</form>
+    </div>
+    </main>
+  </div>
+</div>
+  </section>
+
+      <hr />
+
+
+    </main>
+    <section>
+        <div align="center">
+    <br>
+<b><h1 style="color: #2b542c;font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;font-size: 60px;">Property data</h1></b>
+
+{#                        <a href="{% url 'export_users_csv2' %}">Export all users</a>#}
+{#    <input class="btn btn-primary" style="margin-left: 1000px;" type="submit" value="Export To Excel" />#}
+                        <button class="btn btn-primary" style="margin-left: 1000px;" onclick="exportTableToCSV('AJ.csv')">Export To Excel </button>
+
+            <br>
+            <br>
+
+{#Anji#}
+
+{#<button class="btn btn-primary" onclick="location.href={% url 'loader'%}">Logout</button>#}
+
+{#            <form action="#" method="get">#}
+{# <input type="text" value="8" name="mytextbox" size="1"/>#}
+{# <input type="submit" class="btn" value="Click" name="mybtn">#}
+{#</form>#}
+{##}
+
+
+{#Anji#}
+        {% if aj.UserPercentage == 0  %}
+{#            <h1>Hello</h1>#}
+            <table id="tblCustomers myTable"  border="1"  style="margin-left: 10px;width: 99%;">
+<tr style="background-color: #2b542c;color: whitesmoke;">
+
+    <td>State</td>
+    <td>County</td>
+    <td>Net Price / Net Area </td>
+    <td>User Percentage</td>
+    <td>Rate </td>
+    <td >FinaleValue</td>
+    <td>Created_At</td>
+    <td>Updated_At</td>
+
+
+</tr>
+
+        {% for prop in aj %}
+<tr>
+
+    <td>{{ prop.state }}</td>
+    <td>{{ prop.county }}</td>
+    <td>{{ prop.NetPrAr |floatformat:2 }}</td>
+    <td>{{ prop.UserPercentage |floatformat:2 }}</td>
+    <td>{{ prop.Rate |floatformat:2 }}</td>
+    <td>{{ prop.FinaleValue |floatformat:2 }}</td>
+    <td>{{ prop.created_at }}</td>
+    <td>{{ prop.updated_at }}</td>
+
+
+
+
+
+</tr>
+{% endfor %}
+    </table>
+<div class="" style="color: #2f9574; width:80%;background-color: whitesmoke">
+<table class="pinned-row" border="2" style="background-color: whitesmoke">
+{#        {% render_table table %}#}
+    </table>
+    </div>
+    </div>
+{#    <form action="/export_users_csv2" >#}
+    {% else %}
+{#            <h3>World</h3>#}
+<table id="myTable"  border="1"  style="margin-left: 10px;width: 99%;">
+<tr class="header" style="background-color: #2b542c;color: whitesmoke;">
+<td>PropId</td>
+<td>Address</td>
+<td>City</td>
+    <td>State</td>
+<td>County</td>
+<td>Zip Code</td>
+    <td>Net Price</td>
+<td>Area</td>
+<td>Rate(Per Area)</td>
+    <td >Url</td>
+    <td>Types</td>
+    <td>Status</td>
+    <td>Created_At</td>
+    <td>Updated_At</td>
+    <td>Remark</td>
+
+</tr>
+
+{% for prop in users %}
+<tr id="header">
+    <td>{{ prop.lwPropertyId }}</td>
+    <td>{{ prop.address }}</td>
+    <td>{{ prop.city }}</td>
+    <td>{{ prop.state }}</td>
+    <td>{{ prop.county }}</td>
+    <td>{{ prop.zip }}</td>
+    <td>{{ prop.price }}</td>
+    <td>{{ prop.acres }}</td>
+
+    <td>{{ prop.Rate |floatformat:2 }}</td>
+
+
+{#    <td>{{ prop.types }}</td>#}
+    <td style="width: 10px;"><a href=" {{ prop.Url }}" target="_blank">{{ prop.Url }}</a></td>
+    <td>{{ prop.types }}</td>
+    <td>{{ prop.status }}</td>
+    <td>{{ prop.created_at }}</td>
+    <td>{{ prop.updated_at }}</td>
+
+    <td>
+    <form method="post" action="/">
+                         {% csrf_token %}
+
+            <input type="text" id='Descrpt' style="width: 200px;" class="form-control" placeholder="Text" />
+        <button class="btn btn-primary" type="submit">
+							Save
+						</button>
+        </form>
+    </td>
+
+
+
+</tr>
+{% endfor %}
+
+
+</table>
+    {% endif %}
+
+{#     <input class="btn btn-primary" style="margin-left: 1000px;" type="submit" value="Export To Excel" />#}
+{#    </form>#}
+<br>
+
+<nav aria-label="..." style="margin-left:20px;">
+      {% if users.has_other_pages %}
+        <ul class="pagination">
+          {% if users.has_previous %}
+                <li class="page-item active">
+                    <a class="page-link " href="?page={{ users.previous_page_number }}" >Previous</a>
+                  </li>
+            </li>
+          {% else %}
+            <!-- <li class="disabled"><span>&laquo;</span></li> -->
+            <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+          {% endif %}
+          <!-- {% for i in users.paginator.page_range %} -->
+ {% for l in  user.paginator.page_range %}
+        {% if forloop.counter < 5 %}
+            <li><a href="?page={{forloop.counter}}">{{forloop.counter}}</a></li>
+        {% endif %}
+      {% endfor %}
+
+            {% if users.number == i %}
+            <div>
+                <pdf:nextpage />
+            </div>
+            <li class="page-item active"><a class="page-link" href="#">{{ i }}</a></li>
+            <!-- <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li> -->
+            {% else %}
+            <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+              <!-- <li class="page-item disabled"> <a href="?page={{ i }}">{{ i }}</a></li> -->
+            {% endif %}
+
+
+          <!-- {% endfor %} -->
+          {% if users.has_next %}
+          <li class="page-item active">
+            <a class="page-link " href="?page={{ users.next_page_number }}">Next</a>
+          </li>
+          {% else %}
+          <li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
+            <li class="disabled"><span>&raquo;</span></li>
+
+          {% endif %}
+
+
+        </ul>
+      {% endif %}
+    </nav>
+
+
+
+
+<script>
+function myFunction() {
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("myInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[0];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }
+  }
+}
+</script>
+
+<script>
+var coll = document.getElementsByClassName("collapsible");
+var i;
+
+for (i = 0; i < coll.length; i++) {
+  coll[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var content = this.nextElementSibling;
+    if (content.style.display === "block") {
+      content.style.display = "none";
+    } else {
+      content.style.display = "block";
+    }
+  });
+}
+</script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+</body>
+
+</html>

@@ -31,7 +31,8 @@ INSTALLED_APPS = [
     'rest_auth.registration',
     'rest_framework',
     'rest_framework.authtoken',
-    'core'
+    'core',
+    'django_crontab',
 ]
 
 MIDDLEWARE = [
@@ -97,3 +98,7 @@ CSRF_COOKIE_NAME = "csrftoken"
 ACCOUNT_EMAIL_REQUIRED = False
 ACCOUNT_AUTHENTICATION_METHOD = 'username'
 ACCOUNT_EMAIL_VERIFICATION = 'none'
+
+CRONJOBS =[
+    ('*/1 * * * *','core.cron.hi')
+]
