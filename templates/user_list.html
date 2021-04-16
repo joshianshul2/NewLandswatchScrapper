@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% load static%}
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Pagination</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+    <script src='main.js'></script>
+    <html lang="en">
+    <meta charset="utf-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <title>Land Stuff</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'template.css' %}">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+  <style>
+        .div-table {
+  display: table;
+  width: auto;
+  background-color: #eee;
+  border: 1px solid #666666;
+  border-spacing: 5px; /* cellspacing:poor IE support for  this */
+}
+.div-table-row {
+  display: table-row;
+  width: auto;
+  clear: both;
+}
+.div-table-col {
+  float: left; /* fix for  buggy browsers */
+  display: table-column;
+  width: 200px;
+  background-color: #ccc;
+}
+        * {
+  box-sizing: border-box;
+}
+.aParent div {
+    float: left;
+    clear: none;
+}
+.box {
+  float: left;
+  width: 83.33%;
+  padding: 50px;
+    margin-left: 120px;
+    border: 2px  ;
+    border-radius: 25px;
+}
+
+.clearfix::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+        .boxed {
+  border: 1px solid green ;
+}
+.triangle-up {
+	width: 0;
+	height: 0;
+	border-left: 25px solid transparent;
+	border-right: 25px solid transparent;
+	border-bottom: 50px solid green;
+    color: darkgreen;
+}
+.collapsible {
+  background-color: #0b2e13;
+  color: white;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+}
+
+.active, .collapsible:hover {
+  background-color: #555;
+}
+
+.content {
+  padding: 0 18px;
+  display: none;
+  overflow: hidden;
+  background-color: #0b2e13;
+}
+  </style>
+<script type="text/javascript">
+	function downloadCSV(csv, filename) {
+    var csvFile;
+    var downloadLink;
+
+    // CSV file
+    csvFile = new Blob([csv], {type: "text/csv"});
+
+    // Download link
+    downloadLink = document.createElement("a");
+
+    // File name
+    downloadLink.download = filename;
+
+    // Create a link to the file
+    downloadLink.href = window.URL.createObjectURL(csvFile);
+
+    // Hide download link
+    downloadLink.style.display = "none";
+
+    // Add the link to DOM
+    document.body.appendChild(downloadLink);
+
+    // Click download link
+    downloadLink.click();
+}
+function exportTableToCSV(filename) {
+    var csv = [];
+    var rows = document.querySelectorAll("table tr");
+
+    for (var i = 0; i < rows.length; i++) {
+        var row = [], cols = rows[i].querySelectorAll("td, th");
+
+        for (var j = 0; j < cols.length; j++)
+            row.push(cols[j].innerText);
+
+        csv.push(row.join(","));
+    }
+
+    // Download CSV file
+    downloadCSV(csv.join("\n"), filename);
+}
+</script>
+
+</head>
+<body>
+    <h2>Rishuuu</h2>
+    <table id="tblCustomers"  border="1"  style="margin-left: 10px;width: 99%;">
+        <tr style="background-color: #2b542c;color: whitesmoke;">
+        
+            <td>State</td>
+            <td>County</td>
+            <td>Net Price / Net Area </td>
+            <td>User Percentage</td>
+            <td>Rate </td>
+            <td >FinaleValue</td>
+            <td>Created_At</td>
+            <td>Updated_At</td>
+        
+        
+        </tr>
+        
+                {% for prop in users %}
+        <tr>
+        
+            <td>{{ prop.state }}</td>
+            <td>{{ prop.county }}</td>
+            <td>{{ prop.NetPrAr |floatformat:2 }}</td>
+            <td>{{ prop.UserPercentage |floatformat:2 }}</td>
+            <td>{{ prop.Rate |floatformat:2 }}</td>
+            <td>{{ prop.FinaleValue |floatformat:2 }}</td>
+            <td>{{ prop.created_at }}</td>
+            <td>{{ prop.updated_at }}</td>
+        
+        
+        
+        
+        
+        </tr>
+        {% endfor %}
+            </table>
+<br>
+<br>
+            <!-- Pagination -->
+       
+       <nav aria-label="...">
+      {% if users.has_other_pages %}
+        <ul class="pagination">
+          {% if users.has_previous %}
+                <li class="page-item active">
+                    <a class="page-link " href="?page={{ users.previous_page_number }}" >Previous</a>
+                  </li>
+            </li>
+          {% else %}
+            <!-- <li class="disabled"><span>&laquo;</span></li> -->
+            <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+          {% endif %}
+          <!-- {% for i in users.paginator.page_range %} -->
+ {% for l in  user.paginator.page_range %}
+        {% if forloop.counter < 5 %}
+            <li><a href="?page={{forloop.counter}}">{{forloop.counter}}</a></li>
+        {% endif %}
+      {% endfor %}
+
+            {% if users.number == i %}
+            <div>
+                <pdf:nextpage /> 
+            </div> 
+            <li class="page-item active"><a class="page-link" href="#">{{ i }}</a></li> 
+            <!-- <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li> -->
+            {% else %}
+            <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+              <!-- <li class="page-item disabled"> <a href="?page={{ i }}">{{ i }}</a></li> -->
+            {% endif %}
+           
+          
+          <!-- {% endfor %} -->
+          {% if users.has_next %}
+          <li class="page-item active">
+            <a class="page-link " href="?page={{ users.next_page_number }}">Next</a>
+          </li>
+          {% else %}
+          <li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
+            <li class="disabled"><span>&raquo;</span></li>
+           
+          {% endif %}
+    
+          
+        </ul>
+      {% endif %}
+    </nav>
+
+
+</body>
+</html>
+</html>

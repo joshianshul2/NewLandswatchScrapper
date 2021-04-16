@@ -29,19 +29,20 @@ urlpatterns = [
     # url(r'^simple_list$', views.simple_list),
 
     url(r'^$', views.index),
-    url(r'^index3$', views.index3),
+    # url(r'^index3$', views.index3),
     url(r'^login$', views.login),
     # url(r'^rishu$', views.rishu),
-    path('Table', views.Table, name="table"),
+    # path('Table', views.Table, name="table"),
     # url(r'^loader$', views.loader, name='loader'),
     url(r'^register$', views.register),
     url(r'^success$', views.success),
     
     # url(r'^ProtectedView/$', login_required(views.TemplateView.as_view(template_name="bootstrap_form.html"))),
     # url(r'^show$', views.show),
-    path('show/', views.show,name='show2'),
-    # url(r'^Alert$', views.Alert),
-    url(r'^logout_view$', views.logout_view),
+    path('show/', views.show,name='show'),
+    url(r'^Alert$', views.Alert),
+    path('logout_view/', views.logout_view),
+
     # path('loader', views.loader, name='loader'),
     # url(r'^export_users_csv2$',views.export_users_csv2, name='export_users_csv2'),
 

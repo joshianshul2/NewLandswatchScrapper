@@ -83,6 +83,14 @@
   background-color: #0b2e13;
 }
   </style>
+      <script type = "text/javascript" >
+    function preventBack() { window.history.forward();
+     window.history.backward();
+     }
+    setTimeout("preventBack()", 0);
+    window.onunload = function () { null };
+</script>
+
 <script type="text/javascript">
 	function downloadCSV(csv, filename) {
     var csvFile;
@@ -158,7 +166,7 @@ function exportTableToCSV(filename) {
 
 
 </nav>
-
+<h1>{{ request.path }}</h1>
   <section style="margin-top:-10px;">
 
 <div class="clearfix" style="margin-top: 10px;">
@@ -172,7 +180,7 @@ function exportTableToCSV(filename) {
         <div class="form-row">
             <div class="form-group col-12">
                 <div class="input-group">
-                    <input class="form-control py-2 border-right-0 border" type="search" name="title_contains" placeholder="Enter a City , State or County ..." />
+                    <input class="form-control py-2 border-right-0 border" type="search" name="title_contains" placeholder="Enter a City , State or County ..."  required/>
                     <span class="input-group-append">
                         <div class="input-group-text bg-transparent">
                             <i class="fa fa-search"></i>
@@ -208,24 +216,24 @@ function exportTableToCSV(filename) {
         <div class="form-row">
           <div class="form-group col-md-2 col-lg-3">
             <label for="viewCountMin">Minimum Price</label>
-            <input type="number" min=0 class="form-control" id="viewCountMin" placeholder="0" name="view_count_min">
+            <input type="number"  step="0.01" min=0 class="form-control" id="viewCountMin" placeholder="0"  name="view_count_min" >
           </div>
           <div class="form-group col-md-2 col-lg-2">
             <label for="viewCountMax">Maximum Price</label>
-            <input type="number" min=0 class="form-control" id="viewCountMax" placeholder="100000" name="view_count_max">
+            <input type="number" step="0.01" max=1000000 class="form-control" id="viewCountMax" placeholder="1000000" name="view_count_max" >
           </div>
           <div class="form-group col-md-2 col-lg-2">
             <label for="publishDateMin">Publish date minimum</label>
-            <input type="date" class="form-control" id="publishDateMin" name="date_min">
+            <input type="date" class="form-control" value="2000-05-05" id="publishDateMin" placeholder="" name="date_min" >
           </div>
           <div class="form-group col-md-2 col-lg-2">
             <label for="publishDateMax">Publish date maximum</label>
-            <input type="date" class="form-control" id="publishDateMax" name="date_max">
+            <input type="date" class="form-control" value="2050-05-05" id="publishDateMax" placeholder="" name="date_max" >
           </div>
 
             <div class="form-group col-md-2 col-lg-2">
             <label for="types">Types </label>
-            <input type="text"  class="form-control" id="types" style="width:230px;" placeholder="Types" name="types">
+            <input type="text"  class="form-control" id="types" style="width:230px;" placeholder="Types" name="types" >
 
             </div>
 
@@ -235,24 +243,24 @@ function exportTableToCSV(filename) {
 {#<div class="form-group col-md-2 col-lg-2">#}
 {#            <label for="viewCountMin">Price Percentage</label>#}
 
-{#            <input type="number" min=0 class="form-control" id="viewCountMin" placeholder="% in Price" name="view_count_min">#}
+{#            <input type="number" step="0.01" min=0 class="form-control" id="viewCountMin" placeholder="% in Price" name="view_count_min">#}
 {#          </div>#}
 
 
           <div class="form-row" style="padding-left:0px;">
           <div class="form-group col-md-2 col-lg-2">
             <label for="publishDateMin">Update min Date</label>
-            <input type="date" class="form-control" id="publishDateMin" name="date_min">
+            <input type="date" class="form-control" value="2000-05-05" placeholder="2000-01-01" id="publishDateMin"  name="date_min2" >
           </div>
           <div class="form-group col-md-2 col-lg-2">
             <label for="publishDateMax">Update Max Date</label>
-            <input type="date" class="form-control" id="publishDateMax" name="date_max">
+            <input type="date" class="form-control" value="2000-05-05"  placeholder="2050-01-01" id="publishDateMax"  name="date_max2" >
           </div>
 
                   <div class="form-group" >
             <label for="status">Status</label>
-            <select id="status" class="form-control"  style="width:150px;" name="status">
-              <option selected>Choose...</option>
+            <select id="status" class="form-control"  style="width:150px;" name="status" >
+              <option selected></option>
 {#              {% for cat in queryset %}#}
               <option>Active</option>
                   <option>Under Contract</option>
@@ -264,8 +272,8 @@ function exportTableToCSV(filename) {
 
 
             <div class="form-group col-md-2 col-lg-2">
-            <label for="viewCountMax">Acres</label>
-            <input type="number" step="any" min=0 class="form-control" id="viewCountMax" placeholder="0" name="view_acres">
+            <label for="view_acres">Acres</label>
+            <input type="number" step="0.01"  class="form-control" id="view_acres" placeholder="0" name="view_acres" >
           </div>
               </div>
 
@@ -466,7 +474,7 @@ function exportTableToCSV(filename) {
         <ul class="pagination">
           {% if users.has_previous %}
                 <li class="page-item active">
-                    <a class="page-link " href="?page={{ users.previous_page_number }}" >Previous</a>
+                  Anshul  <a class="page-link " href="?page={{ users.previous_page_number }}" >Previous</a>
                   </li>
             </li>
           {% else %}
@@ -476,7 +484,8 @@ function exportTableToCSV(filename) {
           <!-- {% for i in users.paginator.page_range %} -->
  {% for l in  user.paginator.page_range %}
         {% if forloop.counter < 5 %}
-            <li><a href="?page={{forloop.counter}}">{{forloop.counter}}</a></li>
+            anshul
+            <li>Anshul<a href="?page={{forloop.counter}}">{{forloop.counter}}</a></li>
         {% endif %}
       {% endfor %}
 
@@ -484,10 +493,11 @@ function exportTableToCSV(filename) {
             <div>
                 <pdf:nextpage />
             </div>
-            <li class="page-item active"><a class="page-link" href="#">{{ i }}</a></li>
+            <li class="page-item active"><a class="page-link" href="#">Rishuu{{ i }}</a></li>
             <!-- <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li> -->
             {% else %}
-            <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+<!--            http://127.0.0.1:8000/show/?title_contains=Texas&view_count_min=&view_count_max=&date_min=2000-05-05&date_max=2050-05-05&types=&date_min2=2000-05-05&date_max2=2000-05-05&status=&view_acres=-->
+            <li class="page-item"><a class="page-link" href="?title_contains=title_contains.get()&view_count_min=&view_count_max=&date_min=2000-05-05&date_max=2050-05-05&types=&date_min2=2000-05-05&date_max2=2000-05-05&status=&view_acres=&page={{ i }}">Anji{{ i }}</a></li>
               <!-- <li class="page-item disabled"> <a href="?page={{ i }}">{{ i }}</a></li> -->
             {% endif %}
 

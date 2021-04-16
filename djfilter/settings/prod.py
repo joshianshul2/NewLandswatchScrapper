@@ -13,7 +13,7 @@ DATABASES = {
         'USER': 'postgres',
         'PASSWORD':'anshul123',
         'HOST':'localhost',
-        # 'PORT' :5432
+        'PORT' :"5432",
         'listen_addresses':'*',
         'DISABLE_SERVER_SIDE_CURSORS': True,
     }

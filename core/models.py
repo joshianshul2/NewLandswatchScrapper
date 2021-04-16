@@ -1,6 +1,6 @@
 from __future__ import unicode_literals
 from django.db import models
-import django_tables2 as tables
+# import django_tables2 as tables
 
 class Author(models.Model):
     name = models.CharField(max_length=30)
